@@ -5,45 +5,7 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import "./nav.scss";
 
-/* =========================
-  NAV CONFIGURATION
-   ========================= */
-
-const logo = {
-	src: "/logo/binswar-white-b.png",
-	alt: "Binswar",
-	width: 140,
-	height: 40,
-};
-
-const links = [
-	{
-		label: "Services",
-		items: [
-			{ label: "Audit", href: "/audit" },
-			{ label: "New Website", href: "/new-website" },
-		],
-	},
-	{ label: "About", href: "/about" },
-	{ label: "Process", href: "/process" },
-	{ label: "Work", href: "/work" },
-	// { label: "Contact", href: "/contact" },
-];
-
-const cta = {
-	text: "Book A Consult",
-	href: "https://calendly.com/mazen-binswar/30min",
-	variant: "primary",
-	external: true,
-};
-
-const homeHref = "/";
-
-/* =========================
-  COMPONENT
-   ========================= */
-
-export default function Nav() {
+export default function Nav({ logo, links, cta, homeHref = "/" }) {
 	const [openMobile, setOpenMobile] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(null);
 	const menuId = useId();
@@ -116,20 +78,16 @@ export default function Nav() {
 				<Link
 					href={homeHref}
 					className="nav__logo"
-					aria-label={`${logo?.alt ?? "Home"} — go to homepage`}
+					aria-label={`${logo.alt} — go to homepage`}
 					onClick={handleLinkClick}
 				>
-					{logo ? (
-						<Image
-							src={logo.src}
-							alt=""
-							width={logo.width ?? 140}
-							height={logo.height ?? 40}
-							priority
-						/>
-					) : (
-						<span className="nav__logo-text">Logo</span>
-					)}
+					<Image
+						src={logo.src}
+						alt=""
+						width={logo.width}
+						height={logo.height}
+						priority
+					/>
 				</Link>
 
 				<button
@@ -137,6 +95,7 @@ export default function Nav() {
 					className="nav__burger"
 					aria-expanded={openMobile}
 					aria-controls={menuId}
+					aria-haspopup="true"
 					aria-label={
 						openMobile ? "Close navigation menu" : "Open navigation menu"
 					}

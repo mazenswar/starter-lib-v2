@@ -1,0 +1,77 @@
+/* components/sections/heroFullBleed/HeroFullBleed.scss */
+@use "../../../styles/mixins" as *;
+
+/* ── Shared base ────────────────────────────────────────────── */
+
+.hero__eyebrow {
+	margin: 0;
+	color: var(--brand-1);
+}
+
+.hero__heading {
+	margin: 0;
+	font-family: var(--font-heading);
+}
+
+.hero__subheading {
+	margin: 0;
+	max-width: 58ch;
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-4);
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+
+.hero--full-bleed {
+	.hero__inner {
+		display: flex;
+		flex-direction: column;
+		min-height: 100svh;
+
+		@include respond(md) {
+			flex-direction: row;
+			min-height: 100svh;
+		}
+	}
+
+	.hero__bleed-copy {
+		display: flex;
+		align-items: center;
+		background: var(--color-bg);
+		padding: var(--space-16) var(--space-8);
+		flex: 1;
+
+		@include respond(md) {
+			flex: 0 0 50%;
+			padding: var(--space-16);
+		}
+	}
+
+	.hero__bleed-copy-inner {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		max-width: 48ch;
+	}
+
+	.hero__bleed-image {
+		position: relative;
+		min-height: 50svh;
+		flex: 1;
+
+		@include respond(md) {
+			flex: 0 0 50%;
+			min-height: 100svh;
+		}
+
+		img {
+			object-fit: cover;
+			object-position: center top;
+		}
+	}
+}

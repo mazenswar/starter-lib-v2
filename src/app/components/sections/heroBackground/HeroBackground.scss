@@ -1,0 +1,96 @@
+/* components/sections/heroBackground/HeroBackground.scss */
+@use "../../../styles/mixins" as *;
+
+/* ── Shared base ────────────────────────────────────────────── */
+
+.hero__eyebrow {
+	margin: 0;
+	color: var(--brand-1);
+}
+
+.hero__heading {
+	margin: 0;
+	font-family: var(--font-heading);
+}
+
+.hero__subheading {
+	margin: 0;
+	max-width: 58ch;
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-4);
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+
+.hero--background {
+	position: relative;
+	min-height: 90svh;
+	display: flex;
+	align-items: center;
+
+	.hero__bg-image {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+
+		img {
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+
+	.hero__bg-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0.65) 0%,
+			rgba(0, 0, 0, 0.4) 50%,
+			rgba(0, 0, 0, 0.15) 100%
+		);
+	}
+
+	.hero__bg-content {
+		position: relative;
+		z-index: 2;
+		padding-block: var(--space-16);
+	}
+
+	.hero__copy--light {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		max-width: 56ch;
+
+		h1,
+		.hero__heading {
+			color: #ffffff;
+			margin: 0;
+		}
+
+		.hero__eyebrow {
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		.hero__subheading {
+			color: rgba(255, 255, 255, 0.88);
+		}
+
+		/* Outlined buttons sit on the dark overlay in every theme */
+		.btnSecondary {
+			border-color: #ffffff;
+			color: #ffffff;
+
+			&:hover {
+				background: #ffffff;
+				color: #1b1b1d;
+			}
+		}
+	}
+}

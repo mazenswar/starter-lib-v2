@@ -1,54 +1,29 @@
-"use client";
-
 import { Children, isValidElement } from "react";
-import { useState, useEffect } from "react";
 import FadeUp from "../fadeUp/FadeUp";
 
-function getPrefersReduced() {
-	if (typeof window === "undefined") return false;
-	return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
+// Wraps each child in a FadeUp item with an increasing delay.
+// FadeUp handles prefers-reduced-motion, so every child is always
+// wrapped in itemAs — this keeps list markup valid (ul > li).
 export default function StaggerGrid({
 	children,
 	baseDelay = 0,
 	stagger = 100,
-	duration = 0.5,
-	distance = 24,
-	threshold = 0.15,
 	as: Tag = "div",
 	itemAs = "div",
 	className = "",
+	role,
 }) {
-	const [prefersReduced, setPrefersReduced] = useState(getPrefersReduced);
-
-	useEffect(() => {
-		const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-		const handler = (e) => setPrefersReduced(e.matches);
-		mq.addEventListener("change", handler);
-		return () => mq.removeEventListener("change", handler);
-	}, []);
-
 	return (
-		<Tag className={className || undefined}>
-			{Children.map(children, (child, i) => {
-				if (!isValidElement(child)) return child;
-
-				if (prefersReduced) return child;
-
-				return (
-					<FadeUp
-						key={i}
-						as={itemAs}
-						delay={baseDelay + i * stagger}
-						duration={duration}
-						distance={distance}
-						threshold={threshold}
-					>
+		<Tag className={className || undefined} role={role}>
+			{Children.map(children, (child, i) =>
+				isValidElement(child) ? (
+					<FadeUp as={itemAs} delay={baseDelay + i * stagger}>
 						{child}
 					</FadeUp>
-				);
-			})}
+				) : (
+					child
+				),
+			)}
 		</Tag>
 	);
 }

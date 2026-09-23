@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="48" viewBox="0 0 240 48" role="img" aria-label="Juniper Grove Counseling">
+	<circle cx="24" cy="24" r="21" fill="none" stroke="#b13f1c" stroke-width="2"/>
+	<path d="M24 36 V20" stroke="#0e6b64" stroke-width="2" stroke-linecap="round"/>
+	<path d="M24 25 C18 24 15 19 15 13 C21 14 24 18 24 25 Z" fill="#b13f1c"/>
+	<path d="M24 30 C30 29 33 24 33 18 C27 19 24 23 24 30 Z" fill="#0e6b64"/>
+	<text x="54" y="22" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="700" fill="#2b2118">Juniper Grove</text>
+	<text x="54" y="39" font-family="Helvetica, Arial, sans-serif" font-size="10.5" letter-spacing="2.6" fill="#6e5a4a">COUNSELING</text>
+</svg>

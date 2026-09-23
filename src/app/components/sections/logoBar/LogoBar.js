@@ -1,42 +1,7 @@
+// components/sections/logoBar/LogoBar.js
 import Image from "next/image";
 import Link from "next/link";
 import "./logobar.scss";
-
-// const logoBarConfig = {
-//   heading: "Accepting most major insurance", // optional, remove or set to null to hide
-//   logos: [
-//     { src: "/logos/aetna.png", alt: "Aetna", href: null },
-//     { src: "/logos/bcbs.png", alt: "Blue Cross Blue Shield", href: null },
-//     { src: "/logos/cigna.png", alt: "Cigna", href: null },
-//     { src: "/logos/united.png", alt: "United Healthcare", href: null },
-//     { src: "/logos/psychology-today.png", alt: "Psychology Today", href: "https://psychologytoday.com" },
-//     { src: "/logos/zencare.png", alt: "Zencare", href: "https://zencare.co" },
-//   ],
-// }
-
-export default function LogoBar({ logoBarConfig }) {
-	if (!logoBarConfig?.logos?.length) return null;
-
-	return (
-		<section
-			className="logo-bar block"
-			aria-label={logoBarConfig.heading || "Partner logos"}
-		>
-			<div className="container logo-bar__inner">
-				{logoBarConfig.heading && (
-					<p className="logo-bar__heading label">{logoBarConfig.heading}</p>
-				)}
-				<ul className="logo-bar__list" role="list">
-					{logoBarConfig.logos.map((logo) => (
-						<li key={logo.alt} className="logo-bar__item">
-							<LogoItem logo={logo} />
-						</li>
-					))}
-				</ul>
-			</div>
-		</section>
-	);
-}
 
 function LogoItem({ logo }) {
 	// No link — image carries the alt text directly
@@ -48,7 +13,6 @@ function LogoItem({ logo }) {
 				width={logo.width || 120}
 				height={44}
 				className="logo-bar__img"
-				style={{ width: "auto", height: "44px" }}
 			/>
 		);
 	}
@@ -61,7 +25,6 @@ function LogoItem({ logo }) {
 			width={logo.width || 120}
 			height={44}
 			className="logo-bar__img"
-			style={{ width: "auto", height: "44px" }}
 		/>
 	);
 
@@ -85,5 +48,27 @@ function LogoItem({ logo }) {
 		<Link href={logo.href} className="logo-bar__link" aria-label={logo.alt}>
 			{image}
 		</Link>
+	);
+}
+
+export default function LogoBar({ heading, logos }) {
+	if (!logos?.length) return null;
+
+	return (
+		<section
+			className="logo-bar block"
+			aria-label={heading || "Partner logos"}
+		>
+			<div className="container logo-bar__inner">
+				{heading && <p className="logo-bar__heading label">{heading}</p>}
+				<ul className="logo-bar__list" role="list">
+					{logos.map((logo) => (
+						<li key={logo.alt} className="logo-bar__item">
+							<LogoItem logo={logo} />
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
 	);
 }

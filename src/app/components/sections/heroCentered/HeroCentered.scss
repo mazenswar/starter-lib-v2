@@ -1,0 +1,71 @@
+/* components/sections/heroCentered/HeroCentered.scss */
+@use "../../../styles/mixins" as *;
+
+/* ── Shared base ────────────────────────────────────────────── */
+
+.hero {
+	&.block {
+		padding-block: var(--space-16);
+	}
+}
+
+.hero__eyebrow {
+	margin: 0;
+	color: var(--brand-1);
+}
+
+.hero__heading {
+	margin: 0;
+	font-family: var(--font-heading);
+}
+
+.hero__subheading {
+	margin: 0;
+	max-width: 58ch;
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-4);
+
+	&--centered {
+		justify-content: center;
+	}
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+
+.hero--centered {
+	.hero__inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-10);
+	}
+
+	.hero__copy--centered {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: var(--space-4);
+		max-width: 60ch;
+	}
+
+	.hero__media--wide {
+		width: 100%;
+		max-width: 900px;
+		height: 420px;
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+
+		img {
+			border-radius: inherit;
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}

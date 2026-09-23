@@ -1,21 +1,19 @@
-"use client";
+// components/sections/addonsGrid/AddonsGrid.js
 import FadeUp from "../../ui/fadeUp/FadeUp";
 import StaggerGrid from "../../ui/staggerGrid/StaggerGrid";
 import "./addonsgrid.scss";
 
-export default function AddonsGrid({ addonsConfig }) {
-	const {
-		id = "addons",
-		eyebrow,
-		heading,
-		subheading,
-		addons,
-		classNames = "",
-	} = addonsConfig;
-
+export default function AddonsGrid({
+	id = "addons",
+	eyebrow,
+	heading,
+	subheading,
+	addons,
+	classNames = "",
+}) {
 	return (
 		<section
-			className={`block addons-grid ${classNames}`}
+			className={`block addons-grid ${classNames}`.trim()}
 			aria-labelledby={`${id}-heading`}
 			id={id}
 		>

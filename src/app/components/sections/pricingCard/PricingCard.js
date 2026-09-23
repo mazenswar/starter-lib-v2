@@ -1,19 +1,37 @@
-"use client";
+// components/sections/pricingCard/PricingCard.js
 import FadeUp from "../../ui/fadeUp/FadeUp";
 import StaggerGrid from "../../ui/staggerGrid/StaggerGrid";
 import Button from "../../ui/Button";
 import "./pricingcards.scss";
 
-export default function PricingCards({ pricingConfig }) {
-	const {
-		eyebrow,
-		heading,
-		subheading,
-		packages,
-		cta,
-		id = "packages",
-	} = pricingConfig;
+function IconCheck() {
+	return (
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path d="M4 12l6 6L20 6" />
+		</svg>
+	);
+}
 
+export default function PricingCard({
+	id = "packages",
+	eyebrow,
+	heading,
+	subheading,
+	packages,
+	deliveryLabel,
+	cta,
+}) {
 	return (
 		<section
 			className="block pricing-cards"
@@ -50,7 +68,9 @@ export default function PricingCards({ pricingConfig }) {
 							</div>
 
 							<p className="pricing-card__delivery">
-								<span className="pricing-card__delivery-label">Delivery: </span>
+								<span className="pricing-card__delivery-label">
+									{deliveryLabel}{" "}
+								</span>
 								{pkg.delivery}
 							</p>
 
@@ -80,24 +100,5 @@ export default function PricingCards({ pricingConfig }) {
 				)}
 			</div>
 		</section>
-	);
-}
-
-function IconCheck() {
-	return (
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="2.5"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			aria-hidden="true"
-			focusable="false"
-		>
-			<path d="M4 12l6 6L20 6" />
-		</svg>
 	);
 }

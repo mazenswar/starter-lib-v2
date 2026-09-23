@@ -1,65 +1,7 @@
 // components/footer/Footer.js
 import Link from "next/link";
+import Image from "next/image";
 import "./footer.scss";
-
-/* =========================
-   FOOTER CONFIGURATION
-   ========================= */
-
-const contact = {
-	// phone: "(555) 123-4567",
-	email: "mazen@binswar.com",
-	// address: "123 Main St, Suite 4, New York, NY 10001",
-	// virtual: "Serving clients across New Jersey & New York",
-};
-
-const badges = [
-	// {
-	// 	label: "Psychology Today",
-	// 	href: "https://psychologytoday.com",
-	// 	src: "/badges/psychology-today.png",
-	// },
-	// { label: "Zencare", href: "https://zencare.co", src: "/badges/zencare.png" },
-];
-
-const social = [
-	{
-		label: "Instagram",
-		href: "https://instagram.com/yourhandle",
-		icon: "instagram",
-	},
-	{
-		label: "LinkedIn",
-		href: "https://linkedin.com/in/yourprofile",
-		icon: "linkedin",
-	},
-	{
-		label: "Facebook",
-		href: "https://facebook.com/yourpage",
-		icon: "facebook",
-	},
-];
-
-const navLinks = [
-	{ label: "Home", href: "/" },
-	{ label: "Services", href: "/services" },
-	{ label: "About", href: "/about" },
-	{ label: "Contact", href: "/contact" },
-];
-
-const legalLinks = [
-	{ label: "Privacy Policy", href: "/privacy-policy" },
-	{ label: "Terms & Conditions", href: "/terms" },
-	// { label: "Good Faith Estimate", href: "/good-faith-estimate" },
-];
-
-const seoLine = null;
-
-const copyright = {
-	name: "Binswar LLC",
-	// creditText: "Site by Binswar",
-	// creditHref: "https://binswar.com",
-};
 
 /* =========================
    SOCIAL ICONS
@@ -128,7 +70,16 @@ function SocialIcon({ icon }) {
    COMPONENT
    ========================= */
 
-export default function Footer() {
+export default function Footer({
+	labels,
+	contact,
+	navLinks,
+	badges,
+	social,
+	legalLinks,
+	seoLine,
+	copyright,
+}) {
 	const year = new Date().getFullYear();
 	const hasContact =
 		contact.phone || contact.email || contact.address || contact.virtual;
@@ -142,7 +93,7 @@ export default function Footer() {
 					{/* Col 1 — Contact info */}
 					{hasContact && (
 						<div className="footer__col">
-							<p className="footer__col-label">Contact</p>
+							<p className="footer__col-label">{labels.contact}</p>
 							<ul className="footer__contact-list" role="list">
 								{contact.phone && (
 									<li>
@@ -175,8 +126,8 @@ export default function Footer() {
 					)}
 
 					{/* Col 2 — Nav links */}
-					<div className="footer__col">
-						<p className="footer__col-label">Navigate</p>
+					<nav className="footer__col" aria-label={labels.navigate}>
+						<p className="footer__col-label">{labels.navigate}</p>
 						<ul className="footer__nav-list" role="list">
 							{navLinks.map((item) => (
 								<li key={item.href}>
@@ -186,13 +137,13 @@ export default function Footer() {
 								</li>
 							))}
 						</ul>
-					</div>
+					</nav>
 
 					{/* Col 3 — Badges + Social */}
 					<div className="footer__col">
 						{hasBadges && (
 							<>
-								<p className="footer__col-label">Find me on</p>
+								<p className="footer__col-label">{labels.badges}</p>
 								<ul className="footer__badges" role="list">
 									{badges.map((badge) => (
 										<li key={badge.href}>
@@ -204,7 +155,7 @@ export default function Footer() {
 												aria-label={`${badge.label} (opens in a new tab)`}
 											>
 												{badge.src ? (
-													<img
+													<Image
 														src={badge.src}
 														alt=""
 														className="footer__badge-img"
@@ -229,10 +180,9 @@ export default function Footer() {
 						{hasSocial && (
 							<>
 								<p
-									className="footer__col-label"
-									style={{ marginTop: hasBadges ? "var(--space-6)" : 0 }}
+									className={`footer__col-label ${hasBadges ? "footer__col-label--spaced" : ""}`}
 								>
-									Follow
+									{labels.social}
 								</p>
 								<ul className="footer__social" role="list">
 									{social.map((item) => (
@@ -262,17 +212,17 @@ export default function Footer() {
 			</div>
 
 			{/* Bottom bar */}
-			<div className="footer__bottombar" aria-label="Legal and copyright">
+			<div className="footer__bottombar">
 				<div className="container footer__bottombar-inner">
 					<p className="footer__copy">
-						© {year} {copyright.name}. All rights reserved.{" "}
+						© {year} {copyright.name}. {copyright.notice}{" "}
 						{copyright.creditHref && (
 							<a
 								href={copyright.creditHref}
 								className="footer__link"
 								target="_blank"
 								rel="noopener noreferrer"
-								aria-label="Site by Binswar (opens in a new tab)"
+								aria-label={`${copyright.creditText} (opens in a new tab)`}
 							>
 								{copyright.creditText}
 							</a>

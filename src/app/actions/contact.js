@@ -1,13 +1,15 @@
 // app/actions/contact.js
 "use server";
+import site from "../../../config/site";
 
 export async function submitContactForm(formData) {
 	const name = formData.get("name")?.toString().trim();
 	const email = formData.get("email")?.toString().trim();
 	const message = formData.get("message")?.toString().trim();
+	const acknowledged = formData.get("acknowledgment") === "yes";
 
 	// Basic validation
-	if (!name || !email || !message) {
+	if (!name || !email || !message || !acknowledged) {
 		return {
 			success: false,
 			error: "Please fill in all required fields.",
@@ -30,8 +32,9 @@ export async function submitContactForm(formData) {
 				Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
 			},
 			body: JSON.stringify({
-				from: "Contact Form <noreply@binswar.com>",
-				to: "mazen@binswar.com",
+				// The from address must be on a domain verified in Resend
+				from: `Contact Form <noreply@${new URL(site.url).hostname.replace(/^www\./, "")}>`,
+				to: site.email,
 				reply_to: email,
 				subject: `New inquiry from ${name}`,
 				text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,

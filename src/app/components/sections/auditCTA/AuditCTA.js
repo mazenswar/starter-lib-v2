@@ -1,4 +1,4 @@
-"use client";
+// components/sections/auditCTA/AuditCTA.js
 import FadeUp from "../../ui/fadeUp/FadeUp";
 import StaggerGrid from "../../ui/staggerGrid/StaggerGrid";
 import Button from "../../ui/Button";
@@ -23,17 +23,15 @@ function IconCheck() {
 	);
 }
 
-export default function AuditCTA({ auditCtaConfig }) {
-	const {
-		id = "audit-cta",
-		eyebrow,
-		heading,
-		body,
-		items,
-		card,
-		classNames = "",
-	} = auditCtaConfig;
-
+export default function AuditCTA({
+	id = "audit-cta",
+	eyebrow,
+	heading,
+	body,
+	items,
+	card,
+	classNames = "",
+}) {
 	return (
 		<section
 			className={`block audit-cta ${classNames}`.trim()}

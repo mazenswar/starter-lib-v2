@@ -1,9 +1,5 @@
-/* components/sections/BookingCTA/bookingcta.scss */
+/* components/sections/bookingCTA/bookingcta.scss */
 @use "../../../styles/mixins" as *;
-
-.booking-cta {
-	/* blockTint provides background */
-}
 
 /* Layout
    -------------------------------------------- */
@@ -58,7 +54,7 @@
 	height: 2rem;
 	border-radius: 50%;
 	background: var(--brand-1);
-	color: #fff;
+	color: var(--brand-5);
 	font-weight: 700;
 	font-size: var(--font-size-xs);
 	@include flex-center;

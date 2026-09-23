@@ -1,0 +1,239 @@
+/* components/sections/therapistProfile/TherapistProfile.scss */
+@use "../../../styles/mixins" as *;
+
+.therapist-profile.block {
+	padding-top: var(--space-10);
+}
+
+/* Back link
+   -------------------------------------------- */
+.therapist-profile__back {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-height: var(--min-tap-target);
+	margin-bottom: var(--space-6);
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	color: var(--brand-1);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	&:focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: var(--focus-offset);
+		border-radius: var(--radius-sm);
+	}
+}
+
+/* Header
+   -------------------------------------------- */
+.therapist-profile__header {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+	padding-bottom: var(--space-10);
+	margin-bottom: var(--space-10);
+	border-bottom: 1px solid var(--color-border);
+
+	@include respond(md) {
+		flex-direction: row;
+		align-items: center;
+		gap: var(--space-10);
+	}
+}
+
+.therapist-profile__photo {
+	flex-shrink: 0;
+	width: min(280px, 70vw);
+	aspect-ratio: 1;
+	border-radius: var(--radius-xl);
+	overflow: hidden;
+	background: var(--brand-3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+	}
+}
+
+.therapist-profile__initials {
+	font-family: var(--font-heading);
+	font-size: clamp(3rem, 8vw, 4.5rem);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	color: var(--brand-1);
+}
+
+.therapist-profile__intro {
+	@include flex-column;
+	gap: var(--space-3);
+}
+
+.therapist-profile__name {
+	margin: 0;
+}
+
+.therapist-profile__meta {
+	margin: 0;
+	color: var(--color-muted);
+}
+
+.therapist-profile__status {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin: 0;
+	font-size: var(--font-size-md);
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.therapist-profile__dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--color-muted);
+
+	.is-accepting & {
+		background: var(--success);
+	}
+}
+
+.therapist-profile__actions {
+	margin-top: var(--space-3);
+}
+
+/* Layout
+   -------------------------------------------- */
+.therapist-profile__layout {
+	display: grid;
+	gap: var(--space-10);
+
+	@include respond(md) {
+		grid-template-columns: 1fr 320px;
+		gap: var(--space-12);
+		align-items: start;
+	}
+}
+
+/* Main column
+   -------------------------------------------- */
+.therapist-profile__main {
+	@include flex-column;
+	gap: var(--space-10);
+	max-width: 70ch;
+
+	section {
+		@include flex-column;
+		gap: var(--space-4);
+		width: 100%;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: var(--font-size-2xl);
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.7;
+	}
+}
+
+.therapist-profile__tags {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+}
+
+.therapist-profile__tag {
+	padding: var(--space-1) var(--space-4);
+	border-radius: 999px;
+	background: var(--brand-3);
+	border: 1px solid var(--color-border);
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+	line-height: 1.6;
+}
+
+.therapist-profile__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	@include flex-column;
+	gap: var(--space-2);
+
+	li {
+		position: relative;
+		padding-left: var(--space-6);
+		line-height: 1.6;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0.55em;
+			width: 0.6rem;
+			height: 0.6rem;
+			border-radius: 999px;
+			border: 2px solid var(--brand-1);
+		}
+	}
+}
+
+/* Sidebar
+   -------------------------------------------- */
+.therapist-profile__aside {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+
+	@include respond(md) {
+		position: sticky;
+		top: calc(64px + var(--space-6));
+	}
+}
+
+.therapist-profile__aside-title {
+	margin: 0 0 var(--space-4);
+	font-size: var(--font-size-lg);
+}
+
+.therapist-profile__facts {
+	margin: 0;
+	@include flex-column;
+	gap: var(--space-4);
+
+	div {
+		@include flex-column;
+		gap: var(--space-1);
+	}
+
+	dt {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+
+	dd {
+		margin: 0;
+		color: var(--color-text);
+		line-height: 1.5;
+	}
+}

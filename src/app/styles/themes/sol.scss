@@ -1,0 +1,25 @@
+/* styles/themes/sol.scss
+   Light and warm: cream background, terracotta primary, marigold
+   surfaces, deep teal accent. Every text pair used by the components
+   meets WCAG AA (4.5:1), and the focus ring meets 3:1. */
+[data-theme="sol"] {
+	--color-bg: #fffaf3; // warm cream
+	--color-surface: #ffffff;
+	--color-text: #2b2118; // deep cocoa
+	--color-muted: #6e5a4a;
+	--color-border: #ecdcc8;
+	--color-background-alt: #fdf1e3;
+
+	--brand-1: #b13f1c; // terracotta — buttons, links, accents
+	--brand-2: #8c2f13; // deeper terracotta — hover
+	--brand-3: #fff0d4; // soft marigold — tinted surfaces, tags
+	--brand-4: #fde3c7; // warm peach — card backgrounds
+	--brand-5: #ffffff; // text on terracotta buttons
+
+	--accent-1: #0e6b64; // deep teal — focus ring
+	--danger: #b42318;
+	--success: #1f7a3d;
+
+	--shadow-1: 0 1px 3px rgba(77, 45, 20, 0.08), 0 1px 2px rgba(77, 45, 20, 0.06);
+	--shadow-2: 0 6px 18px rgba(77, 45, 20, 0.12);
+}

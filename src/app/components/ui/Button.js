@@ -9,8 +9,8 @@ import Link from "next/link";
  * - text: string (required)
  * - href: string (required for link buttons)
  * - variant: "primary" | "secondary" | "ghost" (default: "primary")
- * - onClick: function (optional, for non-link buttons)
- * - external: boolean (opens in new tab, default: false)
+ * - onClick: function (optional)
+ * - external: boolean (bare <a> that opens in a new tab, default: false)
  * - trackEvent: object (optional GTM dataLayer push before navigation)
  *     { event: "event_name", ...additionalData }
  * - disabled: boolean (default: false)
@@ -38,13 +38,8 @@ export default function Button({
 	const baseClass = variantMap[variant] ?? "btnPrimary";
 	const classes = [baseClass, className].filter(Boolean).join(" ");
 
-	// GTM tracking handler
-	function handleTrackedClick(e) {
-		if (disabled) {
-			e.preventDefault();
-			return;
-		}
-
+	// GTM tracking handler for link buttons
+	function handleLinkClick(e) {
 		if (trackEvent) {
 			e.preventDefault();
 			try {
@@ -80,7 +75,7 @@ export default function Button({
 		);
 	}
 
-	// Render as link — disabled links block navigation and remove from tab order
+	// Disabled links block navigation and are removed from the tab order
 	if (disabled) {
 		return (
 			<span className={classes} aria-disabled="true" role="link">
@@ -89,18 +84,25 @@ export default function Button({
 		);
 	}
 
-	// Render as active link
+	// External link — bare a tag, new tab, announced to screen readers
+	if (external) {
+		return (
+			<a
+				href={href}
+				className={classes}
+				onClick={handleLinkClick}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label={`${text} (opens in a new tab)`}
+			>
+				{text}
+			</a>
+		);
+	}
+
+	// Internal link
 	return (
-		<Link
-			href={href}
-			className={classes}
-			onClick={handleTrackedClick}
-			aria-label={external ? `${text} (opens in a new tab)` : undefined}
-			{...(external && {
-				target: "_blank",
-				rel: "noopener noreferrer",
-			})}
-		>
+		<Link href={href} className={classes} onClick={handleLinkClick}>
 			{text}
 		</Link>
 	);

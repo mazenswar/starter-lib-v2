@@ -4,36 +4,38 @@ const site = {
 	// =========================
 	// EDIT THIS PER PROJECT
 	// =========================
-	name: "Binswar",
-	tagline: "A meaningful online presence for your practice",
+	name: "Juniper Grove Counseling",
+	tagline: "Therapy with a team that understands you",
 	description:
-		"Binswar builds custom websites for therapists and mental health practitioners. We handle everything from design and copywriting to SEO and analytics so you can focus on your clients.",
-	url: "https://binswar.com",
+		"Juniper Grove Counseling is a group practice of licensed therapists offering individual, couples, family, and teen therapy in person and online.",
+	url: "https://www.junipergrovecounseling.com",
 	locale: "en_US",
-	// Theme
-	theme: "warm", // "warm" | "clean" | "bold" | "earth" | "minimal"
 	// Analytics
 	analytics: {
-		ga4: "G-XXXXXXXXXX", // or null to disable
+		ga4: null, // "G-XXXXXXXXXX" or null to disable
 		gtm: null, // "GTM-XXXXXXX" or null
 	},
 	// Contact
-	email: "mazen@binswar.com",
-	phone: null, // e.g. "+17321234567"
+	email: "hello@junipergrovecounseling.com",
+	phone: "+15551234567",
 	address: {
-		street: "801 Route 1 PMB 1035",
-		city: "Edison",
-		state: "NJ",
-		zip: "08817",
+		street: "123 Main Street, Suite 200",
+		city: "Anytown",
+		state: "ST",
+		zip: "00000",
 		country: "US",
 	},
 
+	// Secure client portal (SimplePractice or other EHR).
+	// Every "Request a consultation" button links here.
+	clientPortal: "https://junipergrove.clientsecure.me",
+
 	// Branding
 	logo: {
-		src: "/logo.png", // place in /public
-		width: 200,
-		height: 60,
-		alt: "Binswar logo",
+		src: "/logo/juniper-grove.svg", // place in /public
+		width: 240,
+		height: 48,
+		alt: "Juniper Grove Counseling",
 	},
 
 	// OG image defaults
@@ -41,8 +43,8 @@ const site = {
 		width: 1200,
 		height: 630,
 		// Brand colors used in dynamic OG image
-		background: "#1a1a2e", // dark brand color
-		accent: "#7f5a83", // brand-1
+		background: "#2b2118", // deep cocoa
+		accent: "#f4a261", // light terracotta — readable on the dark background
 		text: "#ffffff",
 	},
 
@@ -56,7 +58,7 @@ const site = {
 	// Business type for JSON-LD
 	// See: https://schema.org/LocalBusiness subtypes
 	// Common: "LocalBusiness" | "MedicalBusiness" | "ProfessionalService"
-	businessType: "ProfessionalService",
+	businessType: "MedicalBusiness",
 
 	// Operating hours for JSON-LD (optional)
 	// hours: [

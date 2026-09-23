@@ -37,6 +37,7 @@
 .logo-bar__link {
 	display: inline-flex;
 	align-items: center;
+	min-height: var(--min-tap-target);
 	opacity: 0.85;
 	transition: opacity var(--transition-fast);
 

@@ -1,46 +1,17 @@
-// components/sections/BookingCTA/BookingCTA.js
-"use client";
+// components/sections/bookingCTA/BookingCTA.js
 import Button from "../../ui/Button";
 import FadeUp from "../../ui/fadeUp/FadeUp";
 import StaggerGrid from "../../ui/staggerGrid/StaggerGrid";
 import "./bookingcta.scss";
 
-/* =========================
-   BOOKING CTA CONFIGURATION EXAMPLE
-   Edit this section per project
-   ========================= */
-
-// const bookingConfig = {
-// 	heading: "Ready to take the first step?",
-// 	subheading:
-// 		"Reaching out is often the hardest part. We offer a free 15 minute consultation so you can get a sense of how we work and whether it feels like a good fit. No commitment required.",
-// 	steps: [
-// 		{
-// 			number: "01",
-// 			text: "Click the button below to access our scheduling portal",
-// 		},
-// 		{
-// 			number: "02",
-// 			text: "Choose a time that works for you",
-// 		},
-// 		{
-// 			number: "03",
-// 			text: "We will confirm your consultation and send you everything you need",
-// 		},
-// 	],
-// 	cta: {
-// 		text: "Schedule a free consultation",
-// 		href: "https://your-ehr-booking-link.com",
-// 		variant: "primary",
-// 		external: true,
-// 		trackEvent: null,
-// 	},
-// 	note: "By clicking the button above you will be taken to our secure scheduling portal.",
-// };
-
-export default function BookingCTA({ bookingConfig }) {
-	const { heading, subheading, steps, cta, note } = bookingConfig;
-
+export default function BookingCTA({
+	heading,
+	subheading,
+	steps,
+	cardLabel,
+	cta,
+	note,
+}) {
 	return (
 		<section className="block booking-cta" aria-labelledby="booking-heading">
 			<div className="block__content container">
@@ -55,6 +26,7 @@ export default function BookingCTA({ bookingConfig }) {
 								as="ol"
 								itemAs="li"
 								className="booking-cta__steps"
+								role="list"
 								baseDelay={150}
 								stagger={100}
 							>
@@ -76,9 +48,7 @@ export default function BookingCTA({ bookingConfig }) {
 					{/* Right: CTA card */}
 					<FadeUp as="div" className="booking-cta__card" delay={100}>
 						<div className="booking-cta__card-inner">
-							<p className="booking-cta__card-label">
-								Free 30 minute consultation
-							</p>
+							<p className="booking-cta__card-label">{cardLabel}</p>
 							<Button
 								text={cta.text}
 								href={cta.href}

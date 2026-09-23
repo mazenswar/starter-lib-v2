@@ -51,6 +51,23 @@ $breakpoints: (
 	min-height: var(--min-tap-target);
 }
 
+/* Invisible 44px hit area for standalone text links
+   Grows the clickable area without changing layout
+   -------------------------------------------- */
+@mixin tap-target-overlay {
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: max(100%, var(--min-tap-target));
+		height: max(100%, var(--min-tap-target));
+		transform: translate(-50%, -50%);
+	}
+}
+
 /* Flexbox helpers
    -------------------------------------------- */
 @mixin flex-center {

@@ -11,11 +11,9 @@ function getPrefersReduced() {
 export default function FadeUp({
 	children,
 	delay = 0,
-	duration = 0.5,
-	distance = 24,
-	threshold = 0.15,
 	className = "",
 	as: Tag = "div",
+	id,
 }) {
 	const ref = useRef(null);
 	const [prefersReduced, setPrefersReduced] = useState(getPrefersReduced);
@@ -41,26 +39,23 @@ export default function FadeUp({
 					observer.disconnect();
 				}
 			},
-			{ threshold },
+			{ threshold: 0.15 },
 		);
 
 		observer.observe(el);
 		return () => observer.disconnect();
-	}, [prefersReduced, threshold]);
+	}, [prefersReduced]);
 
-	const style = prefersReduced
-		? {}
-		: {
-				"--fadeup-delay": `${delay}ms`,
-				"--fadeup-duration": `${duration}s`,
-				"--fadeup-distance": `${distance}px`,
-			};
+	// The delay is a per-instance runtime value, so it is handed to
+	// fadeup.scss as a custom property. All styling lives in the SCSS.
+	const delayVar = prefersReduced ? undefined : { "--fadeup-delay": `${delay}ms` };
 
 	return (
 		<Tag
 			ref={ref}
+			id={id}
 			className={`fadeup ${visible ? "fadeup--visible" : ""} ${className}`.trim()}
-			style={style}
+			style={delayVar}
 		>
 			{children}
 		</Tag>

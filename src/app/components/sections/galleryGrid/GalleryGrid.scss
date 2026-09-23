@@ -1,0 +1,215 @@
+/* components/sections/galleryGrid/GalleryGrid.scss */
+@use "../../../styles/mixins" as *;
+
+.gallery {
+	background: var(--color-bg);
+}
+
+/* Header
+   -------------------------------------------- */
+.gallery__header {
+	@include flex-column;
+	gap: var(--space-2);
+	margin-bottom: var(--space-8);
+
+	h2 {
+		margin: 0;
+	}
+
+	.gallery__sub {
+		margin: 0;
+		color: var(--color-muted);
+	}
+}
+
+/* Filter tabs
+   -------------------------------------------- */
+.gallery__filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-bottom: var(--space-8);
+}
+
+.gallery__filter {
+	padding: var(--space-2) var(--space-4);
+	border: 1px solid var(--color-border);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--color-text);
+	font: inherit;
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background var(--transition-fast),
+		border-color var(--transition-fast),
+		color var(--transition-fast);
+	min-height: var(--min-tap-target);
+
+	&:hover {
+		background: var(--brand-3);
+		border-color: var(--brand-1);
+	}
+
+	&.is-active {
+		background: var(--brand-1);
+		border-color: var(--brand-1);
+		color: var(--brand-5);
+	}
+
+	&:focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: var(--focus-offset);
+	}
+}
+
+/* Grid
+   -------------------------------------------- */
+.gallery__grid {
+	display: grid;
+	gap: var(--space-4);
+	grid-template-columns: repeat(2, 1fr);
+
+	@include respond(md) {
+		&--cols-2 {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&--cols-3 {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&--cols-4 {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}
+
+/* Grid item
+   -------------------------------------------- */
+.gallery__item {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--radius-md);
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	background: var(--color-surface);
+	display: block;
+	width: 100%;
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+		transition: transform var(--transition-base);
+	}
+
+	&:hover img {
+		transform: scale(1.04);
+	}
+
+	&:focus-visible {
+		outline: var(--focus-ring);
+		outline-offset: var(--focus-offset);
+	}
+}
+
+/* Hover overlay
+   -------------------------------------------- */
+.gallery__item-overlay {
+	position: absolute;
+	inset: 0;
+	background: color-mix(in oklab, var(--brand-1) 70%, transparent);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity var(--transition-fast);
+
+	span {
+		color: var(--brand-5);
+		font-weight: 600;
+		font-size: var(--font-size-lg);
+		letter-spacing: 0.05em;
+	}
+
+	.gallery__item:hover & {
+		opacity: 1;
+	}
+}
+
+/* Lightbox
+   -------------------------------------------- */
+.gallery__lightbox {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	border: 0;
+	padding: 0;
+	background: color-mix(in oklab, #000 85%, transparent);
+	z-index: var(--z-modal);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.gallery__lightbox-inner {
+	position: relative;
+	max-width: min(900px, 92vw);
+	width: 100%;
+	cursor: default;
+}
+
+.gallery__lightbox-close {
+	position: absolute;
+	top: calc(-1 * var(--space-10));
+	right: 0;
+	background: transparent;
+	border: 0;
+	color: #fff;
+	font-size: var(--font-size-xl);
+	cursor: pointer;
+	padding: var(--space-2);
+	min-width: var(--min-tap-target);
+	min-height: var(--min-tap-target);
+	@include flex-center;
+	border-radius: var(--radius-sm);
+	transition: background var(--transition-fast);
+
+	&:hover {
+		background: color-mix(in oklab, #fff 20%, transparent);
+	}
+
+	/* Token ring, forced white so it stays visible on the dark backdrop */
+	&:focus-visible {
+		outline: var(--focus-ring);
+		outline-color: #fff;
+		outline-offset: var(--focus-offset);
+	}
+}
+
+.gallery__lightbox-figure {
+	margin: 0;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.gallery__lightbox-caption {
+	padding: var(--space-3) var(--space-4);
+	background: color-mix(in oklab, #000 60%, transparent);
+	color: #fff;
+	font-size: var(--font-size-sm);
+	text-align: center;
+}

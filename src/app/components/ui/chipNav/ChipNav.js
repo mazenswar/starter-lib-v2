@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import "./chipnav.scss";
 
 function getIsMobile() {
@@ -7,10 +7,10 @@ function getIsMobile() {
 	return window.matchMedia("(max-width: 767px)").matches;
 }
 
-export default function ChipNav({ chipNavConfig }) {
-	const { label, chips } = chipNavConfig;
+export default function ChipNav({ label, chips }) {
 	const [open, setOpen] = useState(false);
 	const [isMobile, setIsMobile] = useState(getIsMobile);
+	const listId = useId();
 
 	useEffect(() => {
 		const mq = window.matchMedia("(max-width: 767px)");
@@ -22,21 +22,6 @@ export default function ChipNav({ chipNavConfig }) {
 	useEffect(() => {
 		const nav = document.querySelector(".chip-nav");
 		if (!nav) return;
-
-		const getOffset = () => {
-			const chipNav = document.querySelector(".chip-nav");
-			return chipNav ? chipNav.getBoundingClientRect().bottom : 80;
-		};
-
-		const getDocumentTop = (el) => {
-			let top = 0;
-			let current = el;
-			while (current) {
-				top += current.offsetTop;
-				current = current.offsetParent;
-			}
-			return top;
-		};
 
 		const onClick = (e) => {
 			const a = e.target.closest("a[href^='#']");
@@ -57,9 +42,11 @@ export default function ChipNav({ chipNavConfig }) {
 		<nav className="chip-nav" aria-label={label}>
 			<div className="container">
 				<button
+					type="button"
 					className="chip-nav__toggle"
 					aria-expanded={open}
-					aria-controls="chip-nav-list"
+					aria-controls={listId}
+					aria-haspopup="true"
 					onClick={() => setOpen((prev) => !prev)}
 				>
 					<span>{label}</span>
@@ -84,8 +71,9 @@ export default function ChipNav({ chipNavConfig }) {
 					<span className="chip-nav__label">{label}</span>
 				</div>
 
+				{/* Same-page fragment links — plain a tags, not route navigation */}
 				<ul
-					id="chip-nav-list"
+					id={listId}
 					className={`chip-nav__list ${open ? "chip-nav__list--open" : ""}`}
 					role="list"
 				>

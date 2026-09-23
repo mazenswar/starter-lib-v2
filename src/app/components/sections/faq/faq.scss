@@ -37,21 +37,10 @@
 		font-size: var(--font-size-md);
 		transition: border-color var(--transition-fast);
 
-		// &:focus {
-		// 	outline: none;
-		// 	border-color: var(--brand-1);
-		// 	box-shadow: 0 0 0 3px var(--brand-5);
-		// }
-		// &:focus-visible {
-		// 	outline: none;
-		// 	border-color: var(--brand-1);
-		// 	box-shadow: 0 0 0 3px var(--brand-5);
-		// }
-		&:focus,
 		&:focus-visible {
-			outline: none;
+			outline: var(--focus-ring);
+			outline-offset: var(--focus-offset);
 			border-color: var(--brand-1);
-			box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-1) 40%, transparent);
 		}
 
 		&::placeholder {
@@ -105,6 +94,7 @@
 	}
 
 	.faq__toc-link {
+		@include tap-target-overlay;
 		font-size: var(--font-size-sm);
 		color: var(--color-text);
 		text-decoration: none;

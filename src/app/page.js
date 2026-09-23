@@ -1,227 +1,214 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import Hero from "./components/sections/hero/Hero";
+import site from "../../config/site";
+import therapists from "../../config/therapists";
+import HeroBackground from "./components/sections/heroBackground/HeroBackground";
 import CardGrid from "./components/sections/cardGrid/CardGrid";
-import TwoColumn from "./components/sections/twoColumn/TwoColumn";
+import TwoColumnImageRight from "./components/sections/twoColumnImageRight/TwoColumnImageRight";
+import TherapistGrid from "./components/sections/therapistGrid/TherapistGrid";
 import Steps from "./components/sections/steps/Steps";
+import FAQ from "./components/sections/faq/FAQ";
 import BookingCTA from "./components/sections/bookingCTA/BookingCTA";
 
-// const heroConfig = {
-// 	heading: "Your Heading Here",
-// 	subheading:
-// 		"A brief description of what you do and who you serve. Keep it clear and human.",
-// 	cta: {
-// 		text: "Get started",
-// 		href: "/contact",
-// 		variant: "primary",
-// 	},
-// 	image: {
-// 		src: "/home/profile-hero.jpg",
-// 		alt: "Descriptive alt text",
-// 		width: 400,
-// 		height: 400,
-// 	},
-// 	caption: {
-// 		name: "Your Name",
-// 		title: "Licensed Clinical Psychologist",
-// 	},
-// };
-
-// VARIANT A
-// const heroConfig = {
-// 	variant: "split-contained",
-// 	eyebrow: "Currently accepting new clients",
-// 	heading: "A space to be heard, supported, and understood.",
-// 	subheading:
-// 		"Individual therapy for adults navigating anxiety, life transitions, and relationship challenges. Virtual sessions across New Jersey.",
-// 	cta: {
-// 		text: "Book a free consultation",
-// 		href: "/contact",
-// 		variant: "primary",
-// 	},
-// 	ctaSecondary: { text: "Learn more", href: "/about", variant: "secondary" },
-// 	images: {
-// 		portrait: {
-// 			src: "/hero/variant-abd.jpg",
-// 			alt: "Dr. Sarah Mitchell, Licensed Therapist",
-// 		},
-// 	},
-// 	caption: {
-// 		name: "Dr. Sarah Mitchell",
-// 		title: "Licensed Clinical Social Worker",
-// 	},
-// };
-
-// VARIANT B
-
-// const heroConfig = {
-// 	variant: "split-rectangular",
-// 	eyebrow: "Virtual therapy · New Jersey",
-// 	heading: "Therapy that meets you where you are.",
-// 	subheading:
-// 		"You don't have to navigate this alone. I work with adults facing anxiety, burnout, and major life changes in a warm, judgment-free space.",
-// 	cta: { text: "Get started", href: "/contact", variant: "primary" },
-// 	ctaSecondary: { text: "How it works", href: "/services", variant: "ghost" },
-// 	images: {
-// 		portrait: { src: "/hero/variant-abd.jpg" },
-// 	},
-// 	caption: {
-// 		name: "Dr. Sarah Mitchell",
-// 		title: "LCSW · Anxiety & Life Transitions",
-// 	},
-// };
-
-// VARIANT C
-
-// const heroConfig = {
-// 	variant: "full-bleed",
-// 	eyebrow: "Individual & couples therapy",
-// 	heading: "Find your way back to yourself.",
-// 	subheading:
-// 		"A private, compassionate practice offering evidence-based therapy for adults in New Jersey.",
-// 	cta: {
-// 		text: "Schedule a consultation",
-// 		href: "/contact",
-// 		variant: "primary",
-// 	},
-// 	images: {
-// 		background: { src: "/hero/variant-c.jpg", alt: "" },
-// 	},
-// 	caption: null,
-// };
-
-// VARIANT D
-
-// const heroConfig = {
-// 	variant: "asymmetric",
-// 	heading: "Rooted in care. Grounded in evidence.",
-// 	subheading:
-// 		"Therapy for adults who are ready to do the work. Specializing in anxiety, trauma, and identity.",
-// 	cta: { text: "Book a consultation", href: "/contact", variant: "primary" },
-// 	images: {
-// 		portrait: { src: "/hero/variant-abd.jpg", alt: "Therapy office interior" },
-// 	},
-// 	caption: { name: "Dr. Sam Mitchell", title: "Licensed Psychologist" },
-// };
-
-// VARIANT E
-
-// const heroConfig = {
-// 	variant: "centered",
-// 	eyebrow: "Welcoming new clients",
-// 	heading: "Therapy for the whole person.",
-// 	subheading:
-// 		"A warm, affirming space for adults seeking support with anxiety, relationships, and personal growth. Currently offering virtual sessions across New Jersey.",
-// 	cta: { text: "Start your journey", href: "/contact", variant: "primary" },
-// 	ctaSecondary: {
-// 		text: "Meet your therapist",
-// 		href: "/about",
-// 		variant: "secondary",
-// 	},
-// 	images: {
-// 		portrait: { src: "/hero/variant-e.jpg", alt: "Calm therapy office space" },
-// 	},
-// 	caption: null,
-// };
-
-// VARIANT F
-
+// To change the hero layout, import a different hero variant
+// (e.g. HeroSplitContained) and update data-style in app/layout.js.
 const heroConfig = {
-	variant: "background-hero",
-	eyebrow: "Now accepting new clients",
-	heading: "You deserve a space that feels safe.",
+	eyebrow: "Now welcoming new clients",
+	heading: "Therapy with a team that understands you.",
 	subheading:
-		"Individual therapy for adults navigating anxiety, burnout, and life transitions. Virtual sessions across New Jersey.",
-	cta: {
-		text: "Book a free consultation",
-		href: "/contact",
-		variant: "primary",
+		`${site.name} is a group practice of licensed therapists offering individual, couples, family, and teen therapy — in person and online.`,
+	cta: { text: "Find a therapist", href: "/therapists", variant: "primary" },
+	ctaSecondary: {
+		text: "Request a consultation",
+		href: site.clientPortal,
+		variant: "secondary",
+		external: true,
 	},
-	ctaSecondary: { text: "Learn more", href: "/about", variant: "secondary" },
-	images: {
-		landscape: { src: "/hero/variant-e.jpg", alt: "" },
-		portrait: {
-			src: "/hero/variant-abd.jpg",
-			alt: "Calm therapy office space",
-		},
-		background: { src: "/hero/variant-c.jpg", alt: "" },
-	},
+	image: { src: "/hero/variant-e.jpg", alt: "" },
 };
 
-////////////////////////
-///////////////////////
-//////////////////////
-//////////////////////
-////////////////////
-///////////////////
-
-const cardGridConfig = {
-	heading: "What We Can Help With",
+const servicesConfig = {
+	heading: "How we can help",
 	subheading:
-		"We are here to offer care and perspective as you navigate your journey.",
-	cta: {
-		text: "See all services",
-		href: "/services",
-		variant: "secondary",
-	},
+		"Support for individuals, relationships, and families at every stage of life.",
+	cta: { text: "Explore our services", href: "/services", variant: "secondary" },
 	cards: [
 		{
 			title: "Individual Therapy",
 			description:
-				"A brief description of this service and how it helps your clients.",
-			href: "/services/one",
+				"One-on-one support for anxiety, depression, trauma, life transitions, and more.",
+			href: "/services#individual-therapy",
 			cta: "Learn more",
 		},
 		{
 			title: "Couples Therapy",
 			description:
-				"A brief description of this service and how it helps your clients.",
-			href: "/services/two",
+				"Rebuild trust, improve communication, and reconnect with your partner.",
+			href: "/services#couples-therapy",
 			cta: "Learn more",
 		},
 		{
-			title: "Groups",
+			title: "Family Therapy",
 			description:
-				"A brief description of this service and how it helps your clients.",
-			href: "/services/three",
+				"Work through conflict and strengthen relationships as a family.",
+			href: "/services#family-therapy",
+			cta: "Learn more",
+		},
+		{
+			title: "Teens and Young Adults",
+			description:
+				"Care for adolescents and young adults navigating school, identity, and independence.",
+			href: "/services#teens-and-young-adults",
+			cta: "Learn more",
+		},
+		{
+			title: "Group Therapy",
+			description:
+				"Small, clinician-led groups where you can learn skills and feel less alone.",
+			href: "/services#group-therapy",
+			cta: "Learn more",
+		},
+		{
+			title: "Virtual Therapy",
+			description:
+				"Secure video sessions from anywhere in the state, on a schedule that works for you.",
+			href: "/services#virtual-therapy",
 			cta: "Learn more",
 		},
 	],
 };
 
-const twoColumnConfig = {
-	heading: "Our Approach",
+const aboutConfig = {
+	id: "our-practice",
+	eyebrow: "Our practice",
+	heading: "The right fit makes all the difference",
 	paragraphs: [
-		"First paragraph of content. Describe your approach, philosophy, or whatever this section is about.",
-		"Second paragraph with more detail. Keep it concise and human.",
+		"Research consistently shows that the relationship between client and therapist is one of the strongest predictors of progress. That is why we built a team with a wide range of backgrounds, identities, languages, and specialties.",
+		"When you reach out, our intake coordinator takes the time to understand what you are looking for and matches you with a clinician who is a good fit — not just whoever has the next opening.",
 	],
 	list: [
-		"First key point about your approach or offering",
-		"Second key point that reinforces your value",
-		"Third key point that builds trust",
+		"Licensed clinicians from diverse backgrounds and identities",
+		"Evidence-based care tailored to your goals",
+		"In-person and virtual sessions, including evenings",
+		"LGBTQ+ affirming and culturally responsive",
 	],
-	cta: {
-		text: "Learn more",
-		href: "/about",
-		variant: "secondary",
-	},
+	cta: { text: "About our practice", href: "/about", variant: "secondary" },
 	image: {
 		src: "/assets/nurture.jpg",
-		alt: "Descriptive alt text for the image",
-		width: 400,
-		height: 400,
+		alt: "Cupped hands holding a small green seedling in soil",
+		width: 3555,
+		height: 3555,
 	},
-	imagePosition: "right", // "left" or "right"
+};
+
+const teamPreviewConfig = {
+	id: "meet-our-therapists",
+	eyebrow: "Our team",
+	heading: "Meet some of our therapists",
+	subheading:
+		"Each of our clinicians brings their own training, experience, and perspective.",
+	therapists: therapists.slice(0, 3),
+	acceptingLabel: "Accepting new clients",
+	waitlistLabel: "Waitlist",
+	specialtiesLabel: "Specialties",
+	profileLinkText: "View profile",
+	cta: { text: "Meet the full team", href: "/therapists", variant: "secondary" },
+};
+
+const stepsConfig = {
+	heading: "Getting started",
+	subheading: "Reaching out is the hardest part. Here is what happens next.",
+	steps: [
+		{
+			id: "step-reach-out",
+			title: "Reach out",
+			description:
+				"Request a consultation through our secure client portal, or give us a call. Tell us a little about what brings you in.",
+		},
+		{
+			id: "step-consultation",
+			title: "Free 15-minute consultation",
+			description:
+				"Our intake coordinator will call you to learn about your needs, availability, and insurance.",
+		},
+		{
+			id: "step-match",
+			title: "Get matched",
+			description:
+				"We recommend a therapist whose specialties, approach, and schedule fit you — or you can choose your own.",
+		},
+		{
+			id: "step-first-session",
+			title: "Begin therapy",
+			description:
+				"Meet your therapist in person or online. Your first session is a chance to talk about your goals and see how it feels.",
+		},
+	],
+	cta: { text: "Find a therapist", href: "/therapists", variant: "secondary" },
+};
+
+const faqConfig = {
+	id: "common-questions",
+	heading: "Common questions",
+	subheading: "Answers to what people ask us most.",
+	contact: { text: "See all FAQs", href: "/faq" },
+	groups: [
+		{
+			id: "home-faq",
+			title: "Before you start",
+			items: [
+				{
+					id: "home-faq-insurance",
+					q: "Do you take insurance?",
+					a: "<p>Many of our therapists are in network with major insurance plans, and all of them can provide paperwork for out-of-network reimbursement. Each therapist's profile lists the plans they accept.</p>",
+				},
+				{
+					id: "home-faq-virtual",
+					q: "Do you offer virtual sessions?",
+					a: "<p>Yes. Most of our clinicians offer secure video sessions to clients anywhere in the state, and some see clients virtually only.</p>",
+				},
+				{
+					id: "home-faq-choose",
+					q: "How do I choose a therapist?",
+					a: "<p>You are welcome to browse our therapists and request someone specific. If you are not sure, our intake coordinator will recommend a clinician based on what you share with us.</p>",
+				},
+				{
+					id: "home-faq-crisis",
+					q: "What if I am in crisis?",
+					a: "<p>We are not a crisis service. If you are in immediate danger, call 911. For urgent emotional support, call or text 988 to reach the Suicide and Crisis Lifeline, available 24/7.</p>",
+				},
+			],
+		},
+	],
+};
+
+const bookingConfig = {
+	heading: "Ready to take the first step?",
+	subheading:
+		"We offer a free 15-minute phone consultation so you can ask questions and get matched with the right therapist. No commitment required.",
+	steps: [
+		{ number: "01", text: "Request a consultation through our secure client portal" },
+		{ number: "02", text: "Talk with our intake coordinator" },
+		{ number: "03", text: "Get matched and schedule your first session" },
+	],
+	cardLabel: "Free 15-minute consultation",
+	cta: {
+		text: "Request a consultation",
+		href: site.clientPortal,
+		variant: "primary",
+		external: true,
+	},
+	note: "Not for emergencies. If you are in crisis, call or text 988 or call 911.",
 };
 
 export default function Home() {
 	return (
 		<main id="main-content" className="home__page">
-			<Hero heroConfig={heroConfig} />
-			<CardGrid cardGridConfig={cardGridConfig} />
-			<TwoColumn twoColumnConfig={twoColumnConfig} />
-			<Steps />
-			<BookingCTA />
+			<HeroBackground {...heroConfig} />
+			<CardGrid {...servicesConfig} />
+			<TwoColumnImageRight {...aboutConfig} />
+			<TherapistGrid {...teamPreviewConfig} />
+			<Steps {...stepsConfig} />
+			<FAQ {...faqConfig} />
+			<BookingCTA {...bookingConfig} />
 		</main>
 	);
 }

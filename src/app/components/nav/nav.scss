@@ -31,6 +31,7 @@
 .nav__logo {
 	display: inline-flex;
 	align-items: center;
+	min-height: var(--min-tap-target);
 	text-decoration: none;
 
 	img {
@@ -42,12 +43,6 @@
 		outline-offset: var(--focus-offset);
 		border-radius: var(--radius-sm);
 	}
-}
-
-.nav__logo-text {
-	font-weight: 700;
-	font-size: var(--font-size-xl);
-	color: var(--brand-1);
 }
 
 /* Burger
@@ -242,13 +237,6 @@
 	z-index: var(--z-dropdown);
 }
 
-// @include respond(lg) {
-// 	.nav__item:hover > .nav__dropdownWrap > .nav__dropdown {
-// 		opacity: 1;
-// 		pointer-events: auto;
-// 		transform: translateY(0);
-// 	}
-// }
 @include respond(lg) {
 	.nav__dropdown.is-open {
 		opacity: 1;
@@ -282,6 +270,7 @@
    -------------------------------------------- */
 .nav__dropdownLink {
 	display: block;
+	min-height: var(--min-tap-target);
 	padding: var(--space-3) var(--space-4);
 	border-radius: var(--radius-sm);
 	color: var(--color-text);

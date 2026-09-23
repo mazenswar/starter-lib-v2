@@ -1,71 +1,53 @@
-// components/sections/ContactForm/ContactForm.js
+// components/sections/contactForm/ContactForm.js
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { submitContactForm } from "@/app/actions/contact";
-import "./contactform.scss";
+import "./contactForm.scss";
 
-/* =========================
-  CONTACT FORM CONFIGURATION
-  Edit this section per project
-   ========================= */
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-//    Setup notes:
-// Two things needed before this works:
-
-// Install Resend: npm install resend
-// Add to your .env.local:
-
-// RESEND_API_KEY=your_api_key_here
-// Get a free API key at resend.com. No credit card needed for the free tier.
-
-const formConfig = {
-	heading: "Get in touch",
-	subheading:
-		"Have a question or ready to start a project? Send us a message and we will get back to you within one business day.",
-	fields: {
-		name: { label: "Your name", placeholder: "Jane Smith" },
-		email: { label: "Email address", placeholder: "jane@yourpractice.com" },
-		message: {
-			label: "Message",
-			placeholder: "Tell us a little about what you are looking for.",
-		},
-	},
-	submitText: "Send message",
-	successHeading: "Message received",
-	successMessage:
-		"Thank you for reaching out. We will be in touch within one business day.",
-};
-
-/* =========================
-   COMPONENT
-   ========================= */
-
-export default function ContactForm() {
+export default function ContactForm({
+	heading,
+	subheading,
+	fields,
+	privacyNotice,
+	acknowledgmentLabel,
+	errorMessages,
+	submitText,
+	loadingText,
+	requiredNote,
+	successHeading,
+	successMessage,
+	resetText,
+}) {
 	const [status, setStatus] = useState("idle"); // idle | loading | success | error
 	const [errorMessage, setErrorMessage] = useState("");
 	const [errors, setErrors] = useState({});
 	const formRef = useRef(null);
 	const errorRef = useRef(null);
+
 	useEffect(() => {
 		if (status === "error" && errorRef.current) {
 			errorRef.current.focus();
 		}
 	}, [status]);
+
 	function validate(formData) {
 		const errs = {};
 		const name = formData.get("name")?.toString().trim();
 		const email = formData.get("email")?.toString().trim();
 		const message = formData.get("message")?.toString().trim();
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const acknowledged = formData.get("acknowledgment") === "yes";
 
-		if (!name) errs.name = "Please enter your name.";
-		if (!email) errs.email = "Please enter your email address.";
-		else if (!emailRegex.test(email))
-			errs.email = "Please enter a valid email address.";
-		if (!message) errs.message = "Please enter a message.";
+		if (!name) errs.name = errorMessages.name;
+		if (!email) errs.email = errorMessages.email;
+		else if (!EMAIL_REGEX.test(email)) errs.email = errorMessages.emailInvalid;
+		if (!message) errs.message = errorMessages.message;
+		if (!acknowledged) errs.acknowledgment = errorMessages.acknowledgment;
 
 		return errs;
 	}
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		setStatus("loading");
@@ -98,8 +80,8 @@ export default function ContactForm() {
 				<div className="contact-form__layout">
 					{/* Left: heading and context */}
 					<div className="contact-form__intro">
-						<h2 id="contact-heading">{formConfig.heading}</h2>
-						<p className="contact-form__sub">{formConfig.subheading}</p>
+						<h2 id="contact-heading">{heading}</h2>
+						<p className="contact-form__sub">{subheading}</p>
 					</div>
 
 					{/* Right: form or success state */}
@@ -109,10 +91,14 @@ export default function ContactForm() {
 								<div className="contact-form__success-icon" aria-hidden="true">
 									✓
 								</div>
-								<h3>{formConfig.successHeading}</h3>
-								<p>{formConfig.successMessage}</p>
-								<button className="btnGhost" onClick={() => setStatus("idle")}>
-									Send another message
+								<h3>{successHeading}</h3>
+								<p>{successMessage}</p>
+								<button
+									type="button"
+									className="btnGhost"
+									onClick={() => setStatus("idle")}
+								>
+									{resetText}
 								</button>
 							</div>
 						) : (
@@ -120,12 +106,24 @@ export default function ContactForm() {
 								ref={formRef}
 								onSubmit={handleSubmit}
 								noValidate
-								aria-label="Contact form"
+								aria-labelledby="contact-heading"
+								aria-describedby="contact-privacy-notice"
 							>
+								{/* Privacy notice — this form is not HIPAA secure */}
+								<div
+									id="contact-privacy-notice"
+									className="contact-form__notice"
+								>
+									<p className="contact-form__notice-title">
+										{privacyNotice.title}
+									</p>
+									<p>{privacyNotice.text}</p>
+								</div>
+
 								{/* Name */}
 								<div className="contact-form__field">
 									<label htmlFor="contact-name">
-										{formConfig.fields.name.label}
+										{fields.name.label}
 										<span className="contact-form__required" aria-hidden="true">
 											{" "}
 											*
@@ -135,13 +133,12 @@ export default function ContactForm() {
 										id="contact-name"
 										name="name"
 										type="text"
-										placeholder={formConfig.fields.name.placeholder}
+										placeholder={fields.name.placeholder}
 										autoComplete="name"
+										aria-required="true"
 										disabled={status === "loading"}
 										aria-invalid={errors.name ? "true" : "false"}
-										{...(errors.name && {
-											"aria-describedby": "contact-name-error",
-										})}
+										aria-describedby={errors.name ? "contact-name-error" : undefined}
 									/>
 									{errors.name && (
 										<span
@@ -157,7 +154,7 @@ export default function ContactForm() {
 								{/* Email */}
 								<div className="contact-form__field">
 									<label htmlFor="contact-email">
-										{formConfig.fields.email.label}
+										{fields.email.label}
 										<span className="contact-form__required" aria-hidden="true">
 											{" "}
 											*
@@ -167,15 +164,15 @@ export default function ContactForm() {
 										id="contact-email"
 										name="email"
 										type="email"
-										placeholder={formConfig.fields.email.placeholder}
+										placeholder={fields.email.placeholder}
 										autoComplete="email"
+										aria-required="true"
 										disabled={status === "loading"}
 										aria-invalid={errors.email ? "true" : "false"}
-										{...(errors.email && {
-											"aria-describedby": "contact-email-error",
-										})}
+										aria-describedby={
+											errors.email ? "contact-email-error" : undefined
+										}
 									/>
-
 									{errors.email && (
 										<span
 											id="contact-email-error"
@@ -190,7 +187,7 @@ export default function ContactForm() {
 								{/* Message */}
 								<div className="contact-form__field">
 									<label htmlFor="contact-message">
-										{formConfig.fields.message.label}
+										{fields.message.label}
 										<span className="contact-form__required" aria-hidden="true">
 											{" "}
 											*
@@ -200,14 +197,14 @@ export default function ContactForm() {
 										id="contact-message"
 										name="message"
 										rows={5}
-										placeholder={formConfig.fields.message.placeholder}
+										placeholder={fields.message.placeholder}
+										aria-required="true"
 										disabled={status === "loading"}
 										aria-invalid={errors.message ? "true" : "false"}
-										{...(errors.message && {
-											"aria-describedby": "contact-message-error",
-										})}
+										aria-describedby={
+											errors.message ? "contact-message-error" : undefined
+										}
 									/>
-
 									{errors.message && (
 										<span
 											id="contact-message-error"
@@ -218,7 +215,44 @@ export default function ContactForm() {
 										</span>
 									)}
 								</div>
-								{/* Error message */}
+
+								{/* PHI acknowledgment */}
+								<div className="contact-form__field contact-form__field--checkbox">
+									<div className="contact-form__checkbox">
+										<input
+											id="contact-acknowledgment"
+											name="acknowledgment"
+											type="checkbox"
+											value="yes"
+											aria-required="true"
+											disabled={status === "loading"}
+											aria-invalid={errors.acknowledgment ? "true" : "false"}
+											aria-describedby={
+												errors.acknowledgment
+													? "contact-acknowledgment-error"
+													: undefined
+											}
+										/>
+										<label htmlFor="contact-acknowledgment">
+											{acknowledgmentLabel}
+											<span className="contact-form__required" aria-hidden="true">
+												{" "}
+												*
+											</span>
+										</label>
+									</div>
+									{errors.acknowledgment && (
+										<span
+											id="contact-acknowledgment-error"
+											className="contact-form__field-error"
+											role="alert"
+										>
+											{errors.acknowledgment}
+										</span>
+									)}
+								</div>
+
+								{/* Submission error */}
 								{status === "error" && (
 									<div
 										className="contact-form__error"
@@ -237,10 +271,10 @@ export default function ContactForm() {
 									disabled={status === "loading"}
 									aria-busy={status === "loading"}
 								>
-									{status === "loading" ? "Sending..." : formConfig.submitText}
+									{status === "loading" ? loadingText : submitText}
 								</button>
 
-								<p className="contact-form__note">* Required fields</p>
+								<p className="contact-form__note">{requiredNote}</p>
 							</form>
 						)}
 					</div>

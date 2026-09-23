@@ -1,4 +1,4 @@
-/* components/sections/ContactForm/contactform.scss */
+/* components/sections/contactForm/contactForm.scss */
 @use "../../../styles/mixins" as *;
 
 .contact-form {
@@ -7,9 +7,9 @@
 	input,
 	textarea {
 		&:focus-visible {
-			outline: none;
+			outline: var(--focus-ring);
+			outline-offset: var(--focus-offset);
 			border-color: var(--brand-1);
-			box-shadow: 0 0 0 3px var(--brand-5);
 		}
 	}
 }
@@ -63,6 +63,7 @@ form {
 .contact-form__field {
 	@include flex-column;
 	gap: var(--space-2);
+	width: 100%;
 
 	label {
 		font-weight: 500;
@@ -103,6 +104,65 @@ form {
 
 .contact-form__required {
 	color: var(--danger);
+}
+
+/* Privacy notice
+   -------------------------------------------- */
+.contact-form__notice {
+	padding: var(--space-4) var(--space-5);
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--brand-1);
+	border-radius: var(--radius-sm);
+	background: var(--color-background-alt);
+
+	p {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		line-height: 1.6;
+		color: var(--color-text);
+	}
+
+	.contact-form__notice-title {
+		margin-bottom: var(--space-1);
+		font-weight: 600;
+	}
+}
+
+/* Acknowledgment checkbox
+   -------------------------------------------- */
+.contact-form__field--checkbox {
+	gap: var(--space-1);
+}
+
+.contact-form__checkbox {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-3);
+
+	/* 44px tap target around the box, label is also clickable */
+	input[type="checkbox"] {
+		flex-shrink: 0;
+		width: 1.25rem;
+		height: 1.25rem;
+		margin: 0.2rem 0 0;
+		padding: 0;
+		accent-color: var(--brand-1);
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: var(--focus-ring);
+			outline-offset: var(--focus-offset);
+		}
+	}
+
+	label {
+		min-height: var(--min-tap-target);
+		font-weight: 400;
+		font-size: var(--font-size-sm);
+		line-height: 1.6;
+		color: var(--color-text);
+		cursor: pointer;
+	}
 }
 
 /* Error state

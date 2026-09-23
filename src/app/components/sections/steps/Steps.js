@@ -1,55 +1,13 @@
-// /* =========================
-//    STEPS CONFIGURATION
-//    Edit this section per project
-//    ========================= */
-
-// const stepsConfig = {
-// 	heading: "How It Works",
-// 	subheading:
-// 		"A simple, straightforward process from first contact to ongoing care.",
-// 	steps: [
-// 		{
-// 			id: "step-1",
-// 			title: "Step One Title",
-// 			description:
-// 				"Describe what happens in this step. Keep it clear and human.",
-// 		},
-// 		{
-// 			id: "step-2",
-// 			title: "Step Two Title",
-// 			description: "Describe what happens in this step.",
-// 		},
-// 		{
-// 			id: "step-3",
-// 			title: "Step Three Title",
-// 			description: "Describe what happens in this step.",
-// 		},
-// 		{
-// 			id: "step-4",
-// 			title: "Step Four Title",
-// 			description: "Describe what happens in this step.",
-// 		},
-// 	],
-// };
-
-// components/sections/Steps/Steps.js
+// components/sections/steps/Steps.js
 import Button from "../../ui/Button";
 import FadeUp from "../../ui/fadeUp/FadeUp";
 import StaggerGrid from "../../ui/staggerGrid/StaggerGrid";
 import "./steps.scss";
 
-export default function Steps({ stepsConfig }) {
-	const {
-		heading,
-		subheading,
-		steps,
-		classNames = "",
-		cta = true,
-	} = stepsConfig;
-
+export default function Steps({ heading, subheading, steps, cta, classNames = "" }) {
 	return (
 		<section
-			className={`block steps ${classNames}`}
+			className={`block steps ${classNames}`.trim()}
 			aria-labelledby="steps-heading"
 		>
 			<div className="block__content container">
@@ -58,7 +16,13 @@ export default function Steps({ stepsConfig }) {
 					{subheading && <p className="steps__sub">{subheading}</p>}
 				</FadeUp>
 
-				<StaggerGrid as="ol" itemAs="li" className="steps__list" stagger={120}>
+				<StaggerGrid
+					as="ol"
+					itemAs="li"
+					className="steps__list"
+					role="list"
+					stagger={120}
+				>
 					{steps.map((step, index) => (
 						<div key={step.id} className="steps__item">
 							<div className="steps__number" aria-hidden="true">
@@ -70,32 +34,25 @@ export default function Steps({ stepsConfig }) {
 							</div>
 						</div>
 					))}
+				</StaggerGrid>
 
-					{cta ? (
+				{/* Outside the ol so the list only contains steps */}
+				{cta && (
+					<FadeUp
+						as="div"
+						className="steps__footer"
+						delay={steps.length * 120}
+					>
 						<Button
 							className="steps__cta"
-							text="See our full process"
-							href="/process"
-							variant="secondary"
+							text={cta.text}
+							href={cta.href}
+							variant={cta.variant ?? "secondary"}
+							external={cta.external ?? false}
 						/>
-					) : null}
-				</StaggerGrid>
+					</FadeUp>
+				)}
 			</div>
 		</section>
 	);
 }
-/**
- * Unified Button component
- *
- * Props:
- * - text: string (required)
- * - href: string (required for link buttons)
- * - variant: "primary" | "secondary" | "ghost" (default: "primary")
- * - onClick: function (optional, for non-link buttons)
- * - external: boolean (opens in new tab, default: false)
- * - trackEvent: object (optional GTM dataLayer push before navigation)
- *     { event: "event_name", ...additionalData }
- * - disabled: boolean (default: false)
- * - className: string (optional additional classes)
- * - type: "button" | "submit" | "reset" (only used when no href)
- */

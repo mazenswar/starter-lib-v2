@@ -1,9 +1,5 @@
-/* components/sections/Steps/steps.scss */
+/* components/sections/steps/steps.scss */
 @use "../../../styles/mixins" as *;
-
-.steps {
-	/* background variant can be applied via blockTint or blockBrand on the section */
-}
 
 /* Header
    -------------------------------------------- */
@@ -64,7 +60,7 @@
 	width: 2rem;
 	height: 2rem;
 	background: var(--brand-1);
-	color: #fff;
+	color: var(--brand-5);
 	font-weight: 700;
 	font-size: var(--font-size-sm);
 	border-radius: 50%;
@@ -98,6 +94,16 @@
 	margin: 0;
 	line-height: 1.6;
 	color: var(--color-text);
+}
+
+/* CTA — the footer margin matches the list gap it used to sit in
+   -------------------------------------------- */
+.steps__footer {
+	margin-top: var(--space-6);
+
+	@include respond(md) {
+		margin-top: var(--space-4);
+	}
 }
 
 .steps__cta {
